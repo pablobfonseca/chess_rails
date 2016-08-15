@@ -11,11 +11,12 @@ App.game = App.cable.subscriptions.create "GameChannel",
       when "make_move"
         [source, target] = data.msg.split("-")
 
-        App.board.move(data.msg)
         App.chess.move
           from: source
           to: target
           promotion: "q"
+
+        App.board.position(App.chess.fen())
       when "opponent_forfeits"
         @printMessage("Opponent forfeits. You win!")
 
