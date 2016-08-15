@@ -7,5 +7,10 @@ class GameChannel < ApplicationCable::Channel
 
   def unsubscribed
     Seek.remove(uuid)
+    Game.forfeit(uuid)
+  end
+
+  def make_move(data)
+    Game.make_move(uuid, data)
   end
 end
